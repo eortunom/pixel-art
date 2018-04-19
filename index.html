@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-compatible" content="IE-edge">
+    <title>PixelArt Canvas</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+
+    <div id="builder">
+      <h3>Swatches</h3>
+      <div class="palette">
+        <ul>
+          <li class="swatch black"></li>
+          <li class="swatch white selected"></li>
+          <li class="swatch red"></li>
+          <li class="swatch orange"></li>
+          <li class="swatch yellow"></li>
+          <li class="swatch green"></li>
+          <li class="swatch blue"></li>
+          <li class="swatch indigo"></li>
+          <li class="swatch violet"></li>
+        </ul>
+        <hr/>
+      </div>
+      <button id='clearbutton' type='button'>Clear</button>
+      <h3>Map Canvas</h3>
+
+      <div class="map">
+        <!-- map cells populated by JS -->
+      </div>
+
+    </div>
+
+    <!-- load scripts -->
+    <script src="lib/js/jquery-1.11.1.js"></script>
+    <script src="map-builder.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
