@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 
 var FILES = [
-  'map-builder.js',
+  'pixel-canvas.js',
 ];
 
 gulp.task('eslint', function () {

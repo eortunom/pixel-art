@@ -1,11 +1,11 @@
 /*eslint-env browser */
 /*globals $ */
 
-// Default size of map (in tiles)
+// Default size of canvas (in tiles)
 var DEFAULT_WIDTH = 30;
 var DEFAULT_HEIGHT = 15;
 
-var MapBuilder = function ($container, params) {
+var CanvasSetup = function ($container, params) {
   this.$elem = $container;
   if (params) {
     this.height = params.height;
@@ -17,7 +17,7 @@ var MapBuilder = function ($container, params) {
   this.selected = 'white';
 };
 
-MapBuilder.prototype.setupPalette = function () {
+CanvasSetup.prototype.setupPalette = function () {
   var builder = this;
   var swatches = $('.palette').get(0).children[0].getElementsByTagName('li');
   $.each(swatches, function (index, value) {
@@ -31,7 +31,7 @@ MapBuilder.prototype.setupPalette = function () {
   $("#clearbutton").on('mousedown', clearCanvas.bind(this));
 }
 
-MapBuilder.prototype.setupCanvas = function () {
+CanvasSetup.prototype.setupCanvas = function () {
   for (var x = 0; x < this.height; x++) {
     var $newRow = $('<div>');
     $newRow.addClass('row');
@@ -41,7 +41,7 @@ MapBuilder.prototype.setupCanvas = function () {
       $tile.addClass('swatch');
       $tile.addClass(this.selected);
       addHandlers($tile);
-      $('.map').append($newRow);
+      $('.canvas').append($newRow);
     }
   }
 }
@@ -81,7 +81,7 @@ var onMouseDown = function () {
 }
 
 var clearCanvas = function () {
-  $('.map').empty();
+  $('.canvas').empty();
   for (var x = 0; x < this.height; x++) {
     var $newRow = $('<div>');
     $newRow.addClass('row');
@@ -91,7 +91,7 @@ var clearCanvas = function () {
       $tile.addClass('swatch');
       $tile.addClass('white');
       addHandlers($tile);
-      $('.map').append($newRow);
+      $('.canvas').append($newRow);
     }
   }
   console.log(this);

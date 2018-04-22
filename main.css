@@ -54,18 +54,19 @@ hr {
  * ---------------------------------------------------------------------------
  */
 
-#map-builder {
+#canvas-setup {
   display: block;
 }
 
 /*
- * Shared between palette and map.
+ * Shared between palette and canvas.
  */
 .swatch {
   width: 25px;
   height: 25px;
   display: inline-block;
   background-size: 100% auto;
+  border-style: outset;
 }
 
   .swatch.black { background-image: url('lib/img/black.png'); }
@@ -96,12 +97,12 @@ hr {
 .palette .swatch:hover    { border-color: #aca; opacity: 0.8; }
 .palette .swatch.selected { border-color: #0074D9; }
 
-.map {
+.canvas {
   width: 100%;
   position: relative;
 }
 
-.map .row {
+.canvas .row {
   width: 100%;
   margin-bottom: -2px;
   cursor: crosshair;
