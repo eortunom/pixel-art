@@ -1,6 +1,6 @@
 /*eslint no-unused-vars: 0 */
 /*eslint-env browser */
-/*globals $, CanasSetup, Player */
+/*globals $, CanvasSetup */
 
 $(document).ready(function () {
   var $canvasElement = $('#canvas-setup');
