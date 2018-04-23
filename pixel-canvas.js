@@ -4,6 +4,9 @@
 // Default size of canvas (in tiles)
 var DEFAULT_WIDTH = 30;
 var DEFAULT_HEIGHT = 15;
+var INITIAL_COLOR = 'white';
+
+var pixelArray;
 
 var CanvasSetup = function ($container, params) {
   this.$elem = $container;
@@ -14,7 +17,19 @@ var CanvasSetup = function ($container, params) {
     this.height = DEFAULT_HEIGHT;
     this.width = DEFAULT_WIDTH;
   }
-  this.selected = 'white';
+  this.selected = 'black';
+
+
+  //Initialize array that represents color in each cell
+  pixelArray = new Array(this.width);
+  for (var i = 0; i < this.width; i++) {
+    pixelArray[i] = new Array(this.height);
+  }
+  for (var x = 0; x < this.width; x++) {
+    for (var y = 0; y < this.height; y++) {
+      pixelArray[x][y] = INITIAL_COLOR;
+    }
+  }
 };
 
 CanvasSetup.prototype.setupPalette = function () {
@@ -39,7 +54,9 @@ CanvasSetup.prototype.setupCanvas = function () {
       var $tile = $('<div>');
       $newRow.append($tile);
       $tile.addClass('swatch');
-      $tile.addClass(this.selected);
+      $tile.addClass(pixelArray[x][y]);
+      $tile.data('x', x);
+      $tile.data('y', y);
       addHandlers($tile);
       $('.canvas').append($newRow);
     }
@@ -78,6 +95,7 @@ var onMouseDown = function () {
   var selected = $('.selected')[0].classList[1];
   $this.addClass(selected);
   $this.data('selected', selected);
+  pixelArray[$this.data('x')][$this.data('y')] = selected;
 }
 
 var clearCanvas = function () {
@@ -94,5 +112,8 @@ var clearCanvas = function () {
       $('.canvas').append($newRow);
     }
   }
-  console.log(this);
+}
+
+var fillWithColor = function (x, y) {
+  //TODO: recursive method
 }
