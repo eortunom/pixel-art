@@ -5,6 +5,7 @@
 var DEFAULT_WIDTH = 30;
 var DEFAULT_HEIGHT = 15;
 var INITIAL_COLOR = 'white';
+var fill = false;
 
 var pixelArray;
 
@@ -18,9 +19,10 @@ var CanvasSetup = function ($container, params) {
     this.width = DEFAULT_WIDTH;
   }
   this.selected = 'black';
+  this.initializeArray();
+};
 
-
-  //Initialize array that represents color in each cell
+CanvasSetup.prototype.initializeArray = function () {
   pixelArray = new Array(this.width);
   for (var i = 0; i < this.width; i++) {
     pixelArray[i] = new Array(this.height);
@@ -30,7 +32,7 @@ var CanvasSetup = function ($container, params) {
       pixelArray[x][y] = INITIAL_COLOR;
     }
   }
-};
+}
 
 CanvasSetup.prototype.setupPalette = function () {
   var builder = this;
@@ -46,7 +48,7 @@ CanvasSetup.prototype.setupPalette = function () {
   $("#clearbutton").on('mousedown', clearCanvas.bind(this));
 }
 
-CanvasSetup.prototype.setupCanvas = function () {
+CanvasSetup.prototype.redraw = function () {
   for (var x = 0; x < this.height; x++) {
     var $newRow = $('<div>');
     $newRow.addClass('row');
@@ -88,7 +90,6 @@ var onMouseOut = function () {
   $this.addClass($this.data('selected'));
 }
 
-
 var onMouseDown = function () {
   var $this = $(this);
   $this.removeClass(this.classList[1]);
@@ -100,20 +101,15 @@ var onMouseDown = function () {
 
 var clearCanvas = function () {
   $('.canvas').empty();
-  for (var x = 0; x < this.height; x++) {
-    var $newRow = $('<div>');
-    $newRow.addClass('row');
-    for (var y = 0; y < this.width; y++) {
-      var $tile = $('<div>');
-      $newRow.append($tile);
-      $tile.addClass('swatch');
-      $tile.addClass('white');
-      addHandlers($tile);
-      $('.canvas').append($newRow);
-    }
-  }
+  this.initializeArray();
+  this.redraw();
 }
 
-var fillWithColor = function (x, y) {
-  //TODO: recursive method
+var recursiveFill = function (x, y) {
+  pixelArray[x][y] = this.selected;
+}
+
+var fill = function (x, y) {
+  recursiveFill(x, y);
+  redraw();
 }
