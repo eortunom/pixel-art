@@ -8,31 +8,29 @@
     <link rel="stylesheet" type="text/css" href="main.css">
   </head>
   <body>
-
-    <div id="builder">
-      <h3>Palette</h3>
-      <div class="palette">
-        <ul>
-          <li class="swatch black"></li>
-          <li class="swatch white selected"></li>
-          <li class="swatch red"></li>
-          <li class="swatch orange"></li>
-          <li class="swatch yellow"></li>
-          <li class="swatch green"></li>
-          <li class="swatch blue"></li>
-          <li class="swatch indigo"></li>
-          <li class="swatch violet"></li>
-        </ul>
-        <hr/>
+      <div class="block">
+        <div class="palette">
+          <ul>
+            <li class="swatch black selected"></li>
+            <li class="swatch white"></li>
+            <li class="swatch red"></li>
+            <li class="swatch orange"></li>
+            <li class="swatch yellow"></li>
+            <li class="swatch green"></li>
+            <li class="swatch blue"></li>
+            <li class="swatch indigo"></li>
+            <li class="swatch violet"></li>
+          </ul>
+        </div>
+        <button id='clearbutton' type='button'>Clear</button>
       </div>
-      <button id='clearbutton' type='button'>Clear</button>
-      <h3>Canvas</h3>
-
-      <div class="canvas">
-        <!-- canvas cells populated by JS -->
+      <div class="block">
+        <h1>Pixel Art</h1>
+        <h2>My canvas</h2>
+        <div class="canvas">
+          <!-- canvas cells populated by JS -->
+        </div>
       </div>
-
-    </div>
 
     <!-- load scripts -->
     <script src="lib/js/jquery-1.11.1.js"></script>

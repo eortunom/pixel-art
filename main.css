@@ -54,8 +54,9 @@ hr {
  * ---------------------------------------------------------------------------
  */
 
-#canvas-setup {
-  display: block;
+.block {
+  display: inline-block;
+  vertical-align: top;
 }
 
 /*
@@ -82,12 +83,14 @@ hr {
 .palette {
   width: 100%;
   margin-bottom: 1em;
+  display: inline-block;
+  padding-top: 115px;
 }
 
 .palette .swatch {
   width: 25px;
   height: 30px;
-  display: inline-block;
+  display: block;
   margin: 5px;
   border-bottom: solid 5px white;
   background-size: 100% auto;
@@ -100,6 +103,7 @@ hr {
 .canvas {
   width: 100%;
   position: relative;
+  display: inline-block;
 }
 
 .canvas .row {
