@@ -7,8 +7,10 @@ var DEFAULT_HEIGHT = 15;
 var INITIAL_COLOR = 'white';
 
 var pixelArray;
+var builder;
 
 var CanvasSetup = function ($container, params) {
+  builder = this;
   this.$elem = $container;
   if (params) {
     this.height = params.height;
@@ -85,8 +87,10 @@ var onMouseEnter = function (e) {
 
 var onMouseOut = function () {
   var $this = $(this);
-  $this.removeClass(this.classList[1]);
-  $this.addClass($this.data('selected'));
+  if ($this.data('selected')) {             //fixes target cell turning white after filling
+    $this.removeClass(this.classList[1]);
+    $this.addClass($this.data('selected'));
+  }
 }
 
 var onMouseDown = function () {
@@ -111,19 +115,22 @@ var clearCanvas = function () {
   this.redraw();
 }
 
-var recursiveFill = function (x, y, color) {
-  if (x > 0 && x < this.width && y > 0 && y < this.height) {
-    if (pixelArray[x][y] === color) {
-      pixelArray[x][y] = this.selected;
-      recursiveFill(x, y - 1, color);
-      recursiveFill(x, y + 1, color);
-      recursiveFill(x - 1, y, color);
-      recursiveFill(x + 1, y, color);
+var recursiveFill = function (x, y, original) {
+  if (x >= 0 && x < builder.width && y >= 0 && y < builder.height) {
+    if (pixelArray[x][y] === original) {
+      pixelArray[x][y] = builder.selected;
+      recursiveFill(x, y - 1, original);
+      recursiveFill(x, y + 1, original);
+      recursiveFill(x - 1, y, original);
+      recursiveFill(x + 1, y, original);
     }
   }
 }
 
 var fill = function (x, y, originalColor) {
-  recursiveFill(x, y, originalColor);
-  redraw();
+  if (originalColor != builder.selected) {
+    recursiveFill(x, y, originalColor);
+    $('.canvas').empty();
+    builder.redraw();
+  }
 }
