@@ -5,7 +5,6 @@
 var DEFAULT_WIDTH = 30;
 var DEFAULT_HEIGHT = 15;
 var INITIAL_COLOR = 'white';
-var fill = false;
 
 var pixelArray;
 
@@ -19,16 +18,16 @@ var CanvasSetup = function ($container, params) {
     this.width = DEFAULT_WIDTH;
   }
   this.selected = 'black';
-  this.initializeArray();
+  initializeArray(this.width, this.height);
 };
 
-CanvasSetup.prototype.initializeArray = function () {
-  pixelArray = new Array(this.width);
-  for (var i = 0; i < this.width; i++) {
-    pixelArray[i] = new Array(this.height);
+var initializeArray = function (w, h) {
+  pixelArray = new Array(w);
+  for (var i = 0; i < w; i++) {
+    pixelArray[i] = new Array(h);
   }
-  for (var x = 0; x < this.width; x++) {
-    for (var y = 0; y < this.height; y++) {
+  for (var x = 0; x < w; x++) {
+    for (var y = 0; y < h; y++) {
       pixelArray[x][y] = INITIAL_COLOR;
     }
   }
@@ -45,7 +44,7 @@ CanvasSetup.prototype.setupPalette = function () {
       builder.selected = name;
     });
   });
-  $("#clearbutton").on('mousedown', clearCanvas.bind(this));
+  $('#clearbutton').on('mousedown', clearCanvas.bind(this));
 }
 
 CanvasSetup.prototype.redraw = function () {
@@ -92,24 +91,39 @@ var onMouseOut = function () {
 
 var onMouseDown = function () {
   var $this = $(this);
-  $this.removeClass(this.classList[1]);
-  var selected = $('.selected')[0].classList[1];
-  $this.addClass(selected);
-  $this.data('selected', selected);
-  pixelArray[$this.data('x')][$this.data('y')] = selected;
+  var x = $this.data('x');
+  var y = $this.data('y');
+  if ($('#fillcheckbox').prop('checked')) {
+    fill(x, y, pixelArray[x][y]);
+  } 
+  else {
+    $this.removeClass(this.classList[1]);
+    var selected = $('.selected')[0].classList[1];
+    $this.addClass(selected);
+    $this.data('selected', selected);
+    pixelArray[x][y] = selected;
+  }
 }
 
 var clearCanvas = function () {
   $('.canvas').empty();
-  this.initializeArray();
+  initializeArray(this.width, this.height);
   this.redraw();
 }
 
-var recursiveFill = function (x, y) {
-  pixelArray[x][y] = this.selected;
+var recursiveFill = function (x, y, color) {
+  if (x > 0 && x < this.width && y > 0 && y < this.height) {
+    if (pixelArray[x][y] === color) {
+      pixelArray[x][y] = this.selected;
+      recursiveFill(x, y - 1, color);
+      recursiveFill(x, y + 1, color);
+      recursiveFill(x - 1, y, color);
+      recursiveFill(x + 1, y, color);
+    }
+  }
 }
 
-var fill = function (x, y) {
-  recursiveFill(x, y);
+var fill = function (x, y, originalColor) {
+  recursiveFill(x, y, originalColor);
   redraw();
 }
