@@ -128,9 +128,7 @@ var recursiveFill = function (x, y, original) {
 }
 
 var fill = function (x, y, originalColor) {
-  if (originalColor != builder.selected) {
-    recursiveFill(x, y, originalColor);
-    $('.canvas').empty();
-    builder.redraw();
-  }
+  recursiveFill(x, y, originalColor);
+  $('.canvas').empty();
+  builder.redraw();
 }
