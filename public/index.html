@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-compatible" content="IE-edge">
+    <title>PixelArt Canvas</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+      <div class="block">
+        <div class="palette">
+          <ul>
+            <li class="swatch black selected"></li>
+            <li class="swatch white"></li>
+            <li class="swatch red"></li>
+            <li class="swatch orange"></li>
+            <li class="swatch yellow"></li>
+            <li class="swatch green"></li>
+            <li class="swatch blue"></li>
+            <li class="swatch indigo"></li>
+            <li class="swatch violet"></li>
+          </ul>
+        </div>
+        <button id='clearbutton' type='button'>Clear</button>
+        <input id='fillcheckbox' type='checkbox'>Fill</input>
+      </div>
+      <div class="block">
+        <h1>Pixel Art</h1>
+        <h2>My canvas</h2>
+        <div class="canvas">
+          <!-- canvas cells populated by JS -->
+        </div>
+      </div>
+
+    <!-- load scripts -->
+    <script src="lib/js/jquery-1.11.1.js"></script>
+    <script src="pixel-canvas.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
