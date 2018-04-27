@@ -1,7 +1,10 @@
 /*eslint-env browser */
 /*globals $ */
 
-// Default size of canvas (in tiles)
+
+//Can't do this in client side!!!
+//var colorsDb = require('../db/colors');
+
 var DEFAULT_WIDTH = 30;
 var DEFAULT_HEIGHT = 15;
 var INITIAL_COLOR = 'white';
@@ -47,9 +50,20 @@ CanvasSetup.prototype.setupPalette = function () {
     });
   });
   $('#clearbutton').on('mousedown', clearCanvas.bind(this));
+  $('#savebutton').on('mousedown', saveCanvas.bind(this));
+  $('#gridcheckbox').on('mousedown', this.redraw);
 }
 
 CanvasSetup.prototype.redraw = function () {
+  var swatches = document.getElementsByClassName('swatch');
+  for (var x = 0; x < swatches.length; x++) {
+    if (!$('#gridcheckbox').prop('checked')) {
+      swatches[x].style.border = 'outset';
+    }
+    else {
+      swatches[x].style.border = 'none'; 
+    }
+  }
   for (var x = 0; x < this.height; x++) {
     var $newRow = $('<div>');
     $newRow.addClass('row');
@@ -113,6 +127,21 @@ var clearCanvas = function () {
   $('.canvas').empty();
   initializeArray(this.width, this.height);
   this.redraw();
+}
+
+var saveCanvas = function () {
+  var canvasColors = new Array(this.width * this.height);
+  for (var x = 0; x < this.width; x++) {
+    for (var y = 0; y < this.height; y++) {
+      canvasColors[y * this.width + x] = pixelArray[x][y];
+    }
+  }
+  colorsDb.addColors(canvasColors, function (err) {
+    console.log(err);
+  });
+  console.log(colorsDb.getAllColors(function (err) {
+    console.log(err);
+  }));
 }
 
 var recursiveFill = function (x, y, original) {

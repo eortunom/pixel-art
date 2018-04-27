@@ -59,6 +59,12 @@ hr {
   vertical-align: top;
 }
 
+.tool {
+  display: block;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
 /*
  * Shared between palette and canvas.
  */
